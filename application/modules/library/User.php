@@ -28,6 +28,23 @@ class User
      */
     protected $password;
 
+    /**
+     * @Column(type="string")
+     * @var string
+     */
+    protected $pay_password;
+
+    /**
+     * @Column(type="string")
+     * @var string
+     */
+    protected $pid;
+
+    /**
+     * @Column(type="string")
+     * @var string
+     */
+    protected $time;
 
     public function getId()
     {

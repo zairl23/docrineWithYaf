@@ -1,6 +1,12 @@
 <?php
 
 class UserController extends Yaf_Controller_Abstract {
+	
+	/**
+	 * Docrine ORM instance
+	 */
+	protected $em;
+
 	/**
      * init first process
      */
@@ -12,7 +18,8 @@ class UserController extends Yaf_Controller_Abstract {
 	
 		Yaf_Dispatcher::getInstance()->disableView();
 	
-		$this->db = require_once APPLICATION_PATH . "/conf/db.php";		
+		//$this->db = require_once APPLICATION_PATH . "/conf/db.php";	
+		$this->em = Yaf_Registry::get('EntityManager');	
     
     }
 
@@ -30,9 +37,9 @@ class UserController extends Yaf_Controller_Abstract {
 		Yaf_Dispatcher::getInstance()->disableView();
 		//echo "users list";
 		$dql = "SELECT u FROM User u";
-		$query = $this->db->createQuery($dql);
+		$query = $this->em->createQuery($dql);
 		var_dump($query->getResult());
-		//$user = $this->db->find('User', 1);
+		//$user = $this->em->find('User', 1);
 		//echo $user->getNickname();
 	
 	}
@@ -45,4 +52,12 @@ class UserController extends Yaf_Controller_Abstract {
         echo $user->getNickname();
 
 	}
+
+    public function findOneAction() {
+        $dql = "SELECT u FROM User u";
+        $query =  $this->em->createQuery($dql);
+        //$query = Yaf_Registry::get('EntityManager')->find('User', 1);
+        var_dump($query->getResult());
+        
+    }
 }
